@@ -13,8 +13,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@patials/*": ["./UI/patials/*"],
+      "@styles/*": ["../UI/styles/*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/UI/components/surfaces/Footer/Footer.stories.tsx"],
   "exclude": ["node_modules"]
 }
