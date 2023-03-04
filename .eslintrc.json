@@ -1,3 +1,10 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "plugins": ["prettier"], 
+  "rules": {
+    "@next/next/no-mig-element": "off"
+    //"prettier/prettier": ["error", {"endOfLine": "auto"}]
+    //"quotes": ["error", "double"],
+   // "semi": ["error", "aways"]
+  }
 }
