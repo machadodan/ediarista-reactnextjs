@@ -194,7 +194,7 @@ const DetalheServico: React.FC<DetalheServicoProps> = ({
        align={"center"}
        sx={{pb: 2}}
        >
-        Infelizmente ainda não atendemos na sua região
+        Infelizmente ainda não atendemos na sua região.
         </Typography> 
 
         )}
