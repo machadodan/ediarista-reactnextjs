@@ -5,34 +5,32 @@ import theme from "../../../themes/light-theme";
 // import { } from '@mui/material';
 // import { UserFormProps from './UserForm'};
 
-
 export const BaseGrid = styled("div")`
-    display: grid;
-    grid-auto-rows: auto;
-    gap: ${({ theme }) => theme.spacing(2, 3)};
-    padding: ${({ theme }) => theme.spacing(0, 0, 5)};
+  display: grid;
+  grid-auto-rows: auto;
+  gap: ${({ theme }) => theme.spacing(2, 3)};
+  padding: ${({ theme }) => theme.spacing(0, 0, 5)};
 
-
-    ${({ theme }) => theme.breakpoints.down("md")} {
-      grid-template-columns: 1fr;
-      gap: ${({ theme }) => theme.spacing(3)};      
-    }
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    grid-template-columns: 1fr;
+    gap: ${({ theme }) => theme.spacing(3)};
+  }
 `;
 
 export const NewContactData = styled(BaseGrid)`
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas: 
-  "email email"
-  "senha password-strength"
+  "email email";
+  "senha password-strength";
   "confirmar-senha password-strength";
 
-  ${({ theme }) => theme.breakpoints.down('md')}{
+  ${({ theme }) => theme.breakpoints.down("md")}{
     grid-template-areas:
-    "email"
-    "senha"
-    "password-strength"
-    "confrimar senha";
-    ;
+    "email";
+    "senha";
+    "password-strength";
+    "confrimar-senha";
+    
   }  
 `;
 
@@ -44,15 +42,15 @@ export const PictureSelection = styled(BaseGrid)`
 export const UserData = styled(BaseGrid)`
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    "nome nome nome"
+    "nome nome nome";
     "data-nascimento cpf telefone";
     
 
   ${({ theme }) => theme.breakpoints.down("md")} {
     grid-template-areas:
-      "nome"
-      "data-nascimento"
-      "cpf"
+      "nome";
+      "data-nascimento";
+      "cpf";
       "telefone";
   }
 `;
@@ -60,17 +58,17 @@ export const UserData = styled(BaseGrid)`
 export const PaymentData = styled(BaseGrid)`
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
-    "numero numero"
-    "nome nome"
-    "validade codigo"
+    "numero numero";
+    "nome nome";
+    "validade codigo";
     "erro erro";
 
   ${({ theme }) => theme.breakpoints.down("md")} {
     grid-template-areas:
-      "numero"
-      "nome"
-      "validade"
-      "codigo"
+      "numero";
+      "nome";
+      "validade";
+      "codigo";
       "erro";
   }
 `;
@@ -78,30 +76,28 @@ export const PaymentData = styled(BaseGrid)`
 export const AddressData = styled(BaseGrid)`
   grid-template-columns: repeat(7, 1fr);
   grid-template-areas:
-    "Cep cep estado estado cidade cidade cidade"
-    "bairro bairro logradouro logradouro numero complemento complemento"
+    "cep cep estado estado cidade cidade cidade"
+    "bairro bairro logradouro logradouro numero complemento complemento";
     
   ${({ theme }) => theme.breakpoints.down("md")} {
-    grid-template-areas:
-      "cep", 
-      "estado",
-      "cidade",
-      "bairro",
-      "logradouro",
-      "numero",
-      "complemento";
-      
+    grid-template-areas:     
+      "cep";
+      "estado";
+      "cidade";
+      "bairro";
+      "logradouro";
+      "numero";
+      "complemento";      
   }
 `;
 
 export const FormContainerStyled = styled(Container)`
-  ${({theme})=> theme.breakpoints.down("md")} {
+  ${({ theme }) => theme.breakpoints.down("md")} {
     .MuiPaper-root {
       box-shadow: none;
     }
   }
 `;
-
 
 export const PageFormContainerStyled = styled("div", {
   shouldForwardProp: (prop) => prop !== "fullWidth",

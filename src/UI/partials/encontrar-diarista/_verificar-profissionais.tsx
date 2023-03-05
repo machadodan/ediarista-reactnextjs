@@ -2,7 +2,6 @@ import { Button, Container, Typography, CircularProgress } from "@mui/material";
 import React, { PropsWithChildren } from "react";
 import useVerificarProfissionais from "../../../data/hooks/pages/useVerificarProfissionais.page";
 import PageTitle from "../../components/data-display/PageTitle/PageTitle";
-import { PageTitleContainer } from "../../components/data-display/PageTitle/PageTitle.styled";
 import UserInformation from "../../components/data-display/UserInformation/UserInformation";
 import SafeEnvironment from "../../components/feedback/SafeEnvironment/SafeEnvironment";
 import TextFieldMask from "../../components/inputs/TextFieldMask/TextFieldMask";

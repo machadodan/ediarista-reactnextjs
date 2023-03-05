@@ -1,4 +1,4 @@
-import {
+import {  
   PageTitleContainer,
   PageTitleStyled,
   PageSubtitleStyled,
