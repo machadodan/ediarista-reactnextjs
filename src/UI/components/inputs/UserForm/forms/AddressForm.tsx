@@ -6,7 +6,6 @@ import TextFieldMask from "../../TextFieldMask/TextFieldMask";
 import { Controller } from "react-hook-form";
 import { Autocomplete, MenuItem } from "@mui/material";
 
-
 export const AddressForm = () => {
   const { control, errors, estados, opcoesCidades, addressState, register } =
     useAddressForm();
@@ -15,6 +14,7 @@ export const AddressForm = () => {
       <Controller
         name={"endereco.cep"}
         defaultValue={""}
+        control={control}
         render={({ field: { ref, ...inputProps } }) => (
           <TextFieldMask
             {...inputProps}
@@ -30,6 +30,7 @@ export const AddressForm = () => {
       <Controller
         name={"endereco.estado"}
         defaultValue={""}
+        control={control}
         render={({ field: { ref, ...inputProps } }) => (
           <Select
             {...inputProps}
@@ -62,10 +63,17 @@ export const AddressForm = () => {
             loading={opcoesCidades.length === 0}
             loadingText={"Carregando cidades..."}
             noOptionsText={"Nenhuma cidade com esse nome"}
-            renderInput={(params) => <TextField label={"Cidade"} {...params} />}
+            renderInput={(params) => (
+              <TextField
+                label={"Cidade"}
+                {...params}
+                InputLabelProps={{ required: false }}
+              />
+            )}
           />
         )}
       />
+
       <Controller
         name={"endereco.bairro"}
         defaultValue={""}
@@ -80,6 +88,20 @@ export const AddressForm = () => {
           />
         )}
       />
+      <Controller
+        name={"endereco.logradouro"}
+        defaultValue={""}
+        control={control}
+        render={({ field: { ref, ...inputProps } }) => (
+          <TextField
+            label={"Logradouro"}
+            style={{ gridArea: "logradouro" }}
+            {...inputProps}
+            error={errors?.endereco?.bairro !== undefined}
+            helperText={errors?.endereco?.logradouro?.message}
+          />
+        )}
+      />
       <TextField
         label={"Número"}
         style={{ gridArea: "numero" }}
@@ -87,7 +109,6 @@ export const AddressForm = () => {
         {...register("endereco.numero")}
         error={errors?.endereco?.numero !== undefined}
         helperText={errors?.endereco?.numero?.message}
-        
       />
       <TextField
         label={"Complemento"}
