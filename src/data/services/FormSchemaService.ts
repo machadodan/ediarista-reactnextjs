@@ -28,8 +28,8 @@ export const FormSchemaService = {
           nascimento: yup
             .date()
             .transform(DateService.transformDate)
-            .min(DateService.maxAdultBirthday, "Digite uma data valida")
-            .max(DateService.maxAdultBirthday, "Proibido menos de idade")
+            .min(DateService.maxAdultBirthday(), "Digite uma data valida")
+            .max(DateService.maxAdultBirthday(), "Proibido menos de idade")
             .typeError("Digite uma data válida"),
           cpf: yup.string().test("cpf", "Cpf inválido", ValidationService.cpf),
           telefone: yup
@@ -169,4 +169,12 @@ export const FormSchemaService = {
       }),
     });
   },
+  login(){
+    return yup.object().shape({
+      login: yup.object().shape({
+        email: yup.string().email("E-mail inválido"),
+        password: yup.string().min(5, "Senha muito curta"),
+      })
+    })
+  }
 };
