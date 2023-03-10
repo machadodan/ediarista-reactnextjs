@@ -1,4 +1,4 @@
-import { Divider, Tooltip, Typography } from '@mui/material';
+import { Button, Container, Divider, Tooltip, Typography } from '@mui/material';
 import React, { PropsWithChildren } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 import { ServicoInterface } from '../../../data/@types/ServicoInterface';
@@ -9,9 +9,12 @@ import { AddressForm } from '../../components/inputs/UserForm/UserForm';
 import TextFieldMask from '../../components/inputs/TextFieldMask/TextFieldMask';
 import { ItemsContainer } from './_detalhe-servico.styled';
 import { FormValues } from '../../../data/@types/forms/FormValue';
+import TextField from "../../components/inputs/TextField/TextField";
 
 interface DetalheServicoProps {
   servicos?: ServicoInterface[];
+  comodos?: number;
+  podemosAtender?: boolean;
 }
 
 const houseParts = [
@@ -47,7 +50,11 @@ const houseParts = [
   },
 ];
 
-const DetalheServico: React.FC<DetalheServicoProps> = ({servicos = []}) => {
+const DetalheServico: React.FC<DetalheServicoProps> = ({
+  servicos = [],
+  comodos = 0, 
+  podemosAtender,
+}) => {
   const {
     register,
     control,
@@ -151,22 +158,56 @@ const DetalheServico: React.FC<DetalheServicoProps> = ({servicos = []}) => {
           render={({ field: { ref, ...inputProps } }) => (
             <Tooltip title={"Campo Automático"}>
               <div>
-              <TextFieldMask
-                {...inputProps}
-                inputProps={{readOnly: true, disable: true}}
-                mask={"99:99"}
-                label={"Hora Termino"}
-                error={errors?.faxina?.hora_termino != undefined}
-                helperText={errors?.faxina?.hora_termino?.message}
-              />
+                <TextFieldMask
+                  {...inputProps}
+                  inputProps={{ readOnly: true, disable: true }}
+                  mask={"99:99"}
+                  label={"Hora Termino"}
+                  error={errors?.faxina?.hora_termino != undefined}
+                  helperText={errors?.faxina?.hora_termino?.message}
+                  fullWidth
+                />
               </div>
             </Tooltip>
-            )}
-          />
+          )}
+        />
       </ItemsContainer>
+      <Divider sx={{ my: 5 }} />
+      <Typography sx={{ fontWeight: "bold", pb: 2 }}>Observações</Typography>
+
+      <TextField
+        label={"Quer acrescentar algum detalhe?"}
+        {...register("faxina.observacoes")}
+        required={false}
+        fullWidth
+        multiline
+      />
 
       <Divider sx={{ my: 5 }} />
+      <Typography sx={{ fontWeight: "bold", pb: 2 }}>
+        Qual endereço vai realizar a limpeza?
+      </Typography>
       <AddressForm />
+          {!podemosAtender && (
+       <Typography 
+       color={"error"}
+       align={"center"}
+       sx={{pb: 2}}
+       >
+        Infelizmente ainda não atendemos na sua região.
+        </Typography> 
+
+        )}
+
+      <Container sx={{ textAlign: "right" }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          type="submit"
+          disabled={comodos === 0 || !podemosAtender}
+        >
+          Ir para identificação</Button>
+      </Container>
     </div>
   );
 };

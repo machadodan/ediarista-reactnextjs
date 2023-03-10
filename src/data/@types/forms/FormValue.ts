@@ -38,4 +38,9 @@ export type FormValues = {
     observacoes: string;
     servico: number;
   };
+
+  login:{
+    email: string;
+    password: string;
+  }
 };

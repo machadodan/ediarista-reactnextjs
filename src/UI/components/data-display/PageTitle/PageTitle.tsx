@@ -6,10 +6,11 @@ import {
 
 export interface PageTitleProps {
   title: string;
-  subtitle?: string;
-  children: React.ReactNode;
-}
-const PageTitle: React.FunctionComponent<PageTitleProps> = ({ title, subtitle}) => {
+  subtitle?: string | JSX.Element;
+  //children: React.ReactNode;
+}//React.FunctionComponent
+
+const PageTitle: React.FC<PageTitleProps> = ({ title, subtitle}) => {
   return (
     <PageTitleContainer>
       <PageTitleStyled>{title}</PageTitleStyled>
