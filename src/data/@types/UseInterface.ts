@@ -35,5 +35,4 @@ export interface BuscaCepResponse {
 export enum UserType {
   Cliente = 1,
   Diarista = 2,
-
 }

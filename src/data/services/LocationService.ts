@@ -33,7 +33,6 @@ export const LocationService = {
       { nome: "Tocantins", sigla: "TO" },
     ];
   },
-
   async cidades(estado: string): Promise<CidadeInterface[] | undefined> {
     try {
       const response = await ApiService.request<{ nome: string; id: number }[]>(

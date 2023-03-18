@@ -1,14 +1,15 @@
-import { Button, Container, Divider, Tooltip, Typography } from '@mui/material';
-import React, { PropsWithChildren } from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
-import { ServicoInterface } from '../../../data/@types/ServicoInterface';
-import ItemCounter from '../../components/inputs/ItemCounter/ItemCounter';
-import ToggleButtonGroup, { 
-  ToggleButton } from '../../components/inputs/ToggleButtonGroup/ToggleButtonGroup';
-import { AddressForm } from '../../components/inputs/UserForm/UserForm';
-import TextFieldMask from '../../components/inputs/TextFieldMask/TextFieldMask';
-import { ItemsContainer } from './_detalhe-servico.styled';
-import { FormValues } from '../../../data/@types/forms/FormValue';
+import { Button, Container, Divider, Tooltip, Typography } from "@mui/material";
+import React, { PropsWithChildren } from "react";
+import { useFormContext, Controller } from "react-hook-form";
+import { ServicoInterface } from "../../../data/@types/ServicoInterface";
+import ItemCounter from "../../components/inputs/ItemCounter/ItemCounter";
+import ToggleButtonGroup, {
+  ToggleButton,
+} from "../../components/inputs/ToggleButtonGroup/ToggleButtonGroup";
+import { AddressForm } from "../../components/inputs/UserForm/UserForm";
+import TextFieldMask from "../../components/inputs/TextFieldMask/TextFieldMask";
+import { ItemsContainer } from "./_detalhe-servico.styled";
+import { FormValues } from "../../../data/@types/forms/FormValue";
 import TextField from "../../components/inputs/TextField/TextField";
 
 interface DetalheServicoProps {
@@ -21,49 +22,37 @@ const houseParts = [
   {
     singular: "Cozinha",
     plural: "Cozinhas",
-    nome: "quantidade_cozinhas",
+    name: "quantidade_cozinhas",
   },
-  {
-    singular: "Sala",
-    plural: "Salas",
-    nome: "quantidade_salas",
-  },
+  { singular: "Sala", plural: "Salas", name: "quantidade_salas" },
   {
     singular: "Banheiro",
     plural: "Banheiros",
-    nome: "quantidade_banheiros",
+    name: "quantidade_banheiros",
   },
-  {
-    singular: "Quarto",
-    plural: "Quartos",
-    nome: "quantidade_quartos",
-  },
+  { singular: "Quarto", plural: "Quartos", name: "quantidade_quartos" },
   {
     singular: "Quintal",
     plural: "Quintais",
-    nome: "quantidade_quintais",
+    name: "quantidade_quintais",
   },
-  {
-    singular: "Outro",
-    plural: "Outros",
-    nome: "quantidade_outros",
-  },
+  { singular: "Outros", plural: "Outros", name: "quantidade_outros" },
 ];
 
 const DetalheServico: React.FC<DetalheServicoProps> = ({
   servicos = [],
-  comodos = 0, 
+  comodos = 0,
   podemosAtender,
 }) => {
   const {
     register,
     control,
-    formState: {errors},
+    formState: { errors },
   } = useFormContext<FormValues>();
   return (
     <div>
       <Typography sx={{ fontWeight: "bold", pb: 2 }}>
-        Qual tipo de limpeza você precisa
+        Qual tipo de limpeza você precisa?
       </Typography>
       <Controller
         name={"faxina.servico"}
@@ -88,15 +77,15 @@ const DetalheServico: React.FC<DetalheServicoProps> = ({
       />
 
       <Divider sx={{ my: 5 }} />
-      <Typography sx={{ fontWeight: "bold", md: 2 }}>
-        Qual tamanho da sua casa?
+      <Typography sx={{ fontWeight: "bold", mb: 2 }}>
+        Qual o tamanho da sua casa?
       </Typography>
 
       <ItemsContainer>
         {houseParts.map((item) => (
           <Controller
-            key={item.nome}
-            name={`faxina.${item.nome}` as any}
+            key={item.name}
+            name={`faxina.${item.name}` as any}
             defaultValue={0}
             control={control}
             render={({ field }) => (
@@ -130,7 +119,7 @@ const DetalheServico: React.FC<DetalheServicoProps> = ({
               inputRef={ref}
               mask={"99/99/9999"}
               label={"Data"}
-              error={errors?.faxina?.data_atendimento != undefined}
+              error={errors?.faxina?.data_atendimento !== undefined}
               helperText={errors?.faxina?.data_atendimento?.message}
             />
           )}
@@ -143,9 +132,10 @@ const DetalheServico: React.FC<DetalheServicoProps> = ({
           render={({ field: { ref, ...inputProps } }) => (
             <TextFieldMask
               {...inputProps}
+              inputRef={ref}
               mask={"99:99"}
-              label={"Hora Inicio"}
-              error={errors?.faxina?.hora_inicio != undefined}
+              label={"Hora Início"}
+              error={errors?.faxina?.hora_inicio !== undefined}
               helperText={errors?.faxina?.hora_inicio?.message}
             />
           )}
@@ -160,10 +150,11 @@ const DetalheServico: React.FC<DetalheServicoProps> = ({
               <div>
                 <TextFieldMask
                   {...inputProps}
-                  inputProps={{ readOnly: true, disable: true }}
+                  inputProps={{ readOnly: true, disable: "true" }}
+                  inputRef={ref}
                   mask={"99:99"}
-                  label={"Hora Termino"}
-                  error={errors?.faxina?.hora_termino != undefined}
+                  label={"Hora Término"}
+                  error={errors?.faxina?.hora_termino !== undefined}
                   helperText={errors?.faxina?.hora_termino?.message}
                   fullWidth
                 />
@@ -185,19 +176,15 @@ const DetalheServico: React.FC<DetalheServicoProps> = ({
 
       <Divider sx={{ my: 5 }} />
       <Typography sx={{ fontWeight: "bold", pb: 2 }}>
-        Qual endereço vai realizar a limpeza?
+        Qual endereço onde será realizada a limpeza?
       </Typography>
       <AddressForm />
-          {!podemosAtender && (
-       <Typography 
-       color={"error"}
-       align={"center"}
-       sx={{pb: 2}}
-       >
-        Infelizmente ainda não atendemos na sua região.
-        </Typography> 
 
-        )}
+      {!podemosAtender && (
+        <Typography color={"error"} align={"center"} sx={{ pb: 2 }}>
+          Infelizmente ainda não atendemos na sua região
+        </Typography>
+      )}
 
       <Container sx={{ textAlign: "right" }}>
         <Button
@@ -206,7 +193,8 @@ const DetalheServico: React.FC<DetalheServicoProps> = ({
           type="submit"
           disabled={comodos === 0 || !podemosAtender}
         >
-          Ir para identificação</Button>
+          Ir para identificação
+        </Button>
       </Container>
     </div>
   );

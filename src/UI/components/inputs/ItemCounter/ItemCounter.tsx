@@ -10,27 +10,26 @@ export interface ItemCounterProps {
   onDec: () => void;
 }
 
-const ItemCounter:React.FC<PropsWithChildren<ItemCounterProps>> = ({
+const ItemCounter: React.FC<PropsWithChildren<ItemCounterProps>> = ({
   label,
   plural,
   counter = 0,
-  onInc,
   onDec,
-})=> {
+  onInc,
+}) => {
+  return (
+    <ItemCounterContainer>
+      <CircleButton onClick={onDec}>
+        <i className="twf-minus" />
+      </CircleButton>
+      <span>
+        {counter} {counter > 1 ? plural : label}
+      </span>
+      <CircleButton onClick={onInc}>
+        <i className="twf-plus" />
+      </CircleButton>
+    </ItemCounterContainer>
+  );
+};
 
-    return (
-      <ItemCounterContainer>
-        <CircleButton onClick={onDec}>
-          <i className="twf-minus" />
-        </CircleButton>
-        <span>{counter} {counter >1 ? plural : label}</span>
-        <CircleButton onClick={onInc}>
-          <i className="twf-plus" />
-        </CircleButton>
-      </ItemCounterContainer>
-    );
-       
-    
-
-    };
-    export default ItemCounter
+export default ItemCounter;

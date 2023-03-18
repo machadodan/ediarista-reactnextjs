@@ -23,12 +23,13 @@ const VerificarProfissionais: React.FC<PropsWithChildren> = () => {
     diaristasRestantes,
     buscarProfissionais,
   } = useVerificarProfissionais();
+
   return (
     <>
       <SafeEnvironment />
       <PageTitle
         title="Conheça os profissionais"
-        subtitle="Preencha seu endereço e veja os profissionais da sua localidade"
+        subtitle="Preencha seu endereço e veja todos os profissionais da sua localidade"
       />
       <Container sx={{ mb: 10 }}>
         <FormElementsContainer>
@@ -39,6 +40,7 @@ const VerificarProfissionais: React.FC<PropsWithChildren> = () => {
             onChange={(event) => setCep(event.target.value)}
             fullWidth
           />
+
           {error && <Typography color="error">Cep não encontrado</Typography>}
 
           <Button
@@ -76,7 +78,7 @@ const VerificarProfissionais: React.FC<PropsWithChildren> = () => {
                     color="textSecondary"
                     sx={{ mt: 5 }}
                   >
-                    ... e mais {diaristasRestantes}
+                    ...e mais {diaristasRestantes}
                     {diaristasRestantes > 1
                       ? " profissionais atendem "
                       : " profissional atende "}
@@ -90,8 +92,8 @@ const VerificarProfissionais: React.FC<PropsWithChildren> = () => {
               </Container>
             </ProfissionaisPaper>
           ) : (
-            <Typography align="center" color={"textPrimary"}>
-              Ainda não temos nenhum(a) diarista disponível em sua região
+            <Typography align="center" color="textPrimary">
+              inda não temos nenhum(a) diarista disponível em sua região
             </Typography>
           ))}
       </Container>

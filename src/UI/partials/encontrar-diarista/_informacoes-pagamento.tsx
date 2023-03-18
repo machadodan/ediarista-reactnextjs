@@ -7,16 +7,14 @@ import { PaymentForm } from "../../components/inputs/UserForm/UserForm";
 const InformacoesPagamento: React.FC<PropsWithChildren> = () => {
   return (
     <div>
-      <Typography sx={{ fontWeight: "bold", pb: 2}}>
+      <Typography sx={{ fontWeight: "bold", pb: 2 }}>
         Informações de pagamento
       </Typography>
       <PaymentForm />
-      <Container sx={{textAlign: "center"}}>
-        <Button
-          variant="contained" color="secondary" type="submit">
-           Fazer Pagamento
+      <Container sx={{ textAlign: "center" }}>
+        <Button variant="contained" color="secondary" type="submit">
+          Fazer Pagamento
         </Button>
-
       </Container>
     </div>
   );
