@@ -8,7 +8,7 @@ export interface DiariaInterface {
 
   logradouro?: string;
   bairro: string;
-  complemento: number;
+  complemento: string;
   cep: string;
   cidade: string;
   estado: string;
@@ -23,6 +23,7 @@ export interface DiariaInterface {
   quantidade_outros: number;
 
   observacoes?: string;
+
   servico: number;
   nome_servico: string;
 }

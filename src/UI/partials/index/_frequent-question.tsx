@@ -36,24 +36,24 @@ const questionsList = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   },
 ];
-const FrequentQuestion = () => {
-    const [activeAccordion, setActiveAccordion] = useState(0);
+const FrequestQuestion = () => {
+  const [activeAccordion, setActiveAccordion] = useState(0);
 
-    function isOpen(accordionIndex: number): boolean {
-        return activeAccordion === accordionIndex;
-    }
+  function isOpen(accordionIndex: number): boolean {
+    return activeAccordion === accordionIndex;
+  }
 
-    function changeOpenAccordion(accordionIndex: number): void {
-        if(isOpen(accordionIndex)) {
-            setActiveAccordion(0);
-        }else {
-            setActiveAccordion(accordionIndex);
-        }
+  function changeOpenAccordion(accordionIndex: number): void {
+    if (isOpen(accordionIndex)) {
+      setActiveAccordion(0);
+    } else {
+      setActiveAccordion(accordionIndex);
     }
+  }
 
-    function getIcon(accordionIndex: number): string {
-        return isOpen(accordionIndex) ? "twf-minus" : "twf-plus";
-    }
+  function getIcon(accordionIndex: number): string {
+    return isOpen(accordionIndex) ? "twf-minus" : "twf-plus";
+  }
   return (
     <SectionContainer>
       <Wave src={"/img/home/waves.svg"} />
@@ -61,8 +61,10 @@ const FrequentQuestion = () => {
         <SectionTitle>Ainda está com dúvidas ?</SectionTitle>
         <SectionSubTitle>Veja abaixo as perguntas frequentes</SectionSubTitle>
         {questionsList.map((item, index) => (
-          <AccordionStyled key={index} expanded={isOpen(index + 1)}
-            onChange={()=> changeOpenAccordion(index + 1)}
+          <AccordionStyled
+            key={index}
+            expanded={isOpen(index + 1)}
+            onChange={() => changeOpenAccordion(index + 1)}
           >
             <AccordionSummary expandIcon={<i className={getIcon(index + 1)} />}>
               <Typography color={"primary"}>{item.question}</Typography>
@@ -76,4 +78,4 @@ const FrequentQuestion = () => {
   );
 };
 
-export default FrequentQuestion;
+export default FrequestQuestion;

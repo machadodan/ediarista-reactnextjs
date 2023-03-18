@@ -18,7 +18,7 @@ export type FormValues = {
 
   pagamento_recusado?: string;
 
-  endereco:{
+  endereco: {
     cep: string;
     bairro: string;
     estado: string;
@@ -27,8 +27,6 @@ export type FormValues = {
     numero: string;
     complemento: string;
     codigo_ibge: number;
-
-
   };
 
   faxina: {
@@ -39,8 +37,8 @@ export type FormValues = {
     servico: number;
   };
 
-  login:{
+  login: {
     email: string;
     password: string;
-  }
+  };
 };

@@ -1,4 +1,6 @@
-import { Box, Button, Paper, Step, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Paper, Typography } from "@mui/material";
+import { Container } from "@mui/system";
+import { spawn } from "child_process";
 import React, { PropsWithChildren } from "react";
 import { FormProvider } from "react-hook-form";
 import useContratacao from "../../../data/hooks/pages/useContratacao.page";
@@ -37,6 +39,15 @@ const Contratacao: React.FC<PropsWithChildren> = () => {
     onPaymentFormSubmit,
   } = useContratacao();
   const isMobile = useIsMobile();
+
+  if (!servicos || servicos.length < 1) {
+    return (
+      <Container sx={{ textAlign: "center", my: 10 }}>
+        <CircularProgress />
+      </Container>
+    );
+  }
+
   return (
     <div>
       {!isMobile && <SafeEnvironment />}
@@ -52,13 +63,13 @@ const Contratacao: React.FC<PropsWithChildren> = () => {
           subtitle={
             !hasLogin ? (
               <span>
-                Caso já tenha cadastro,
-                <Button onClick={() => setHasLogin(true)}>Clique aqui</Button>
+                Caso já tenha cadastro,{" "}
+                <Button onClick={() => setHasLogin(true)}>clique aqui</Button>
               </span>
             ) : (
               <span>
-                Caso não tenha cadastro,
-                <Button onClick={() => setHasLogin(false)}>Clique aqui</Button>
+                Caso não tenha cadastro,{" "}
+                <Button onClick={() => setHasLogin(false)}>clique aqui</Button>
               </span>
             )
           }
@@ -69,14 +80,14 @@ const Contratacao: React.FC<PropsWithChildren> = () => {
         <PageTitle
           title="Informe os dados do cartão para pagamento"
           subtitle={
-            "Será feita uma reserva, mas o valor só será descontado quando você confirmar a presença do(a) diarista"
+            "Será feita uma reserva, mas o valor só será descontado quando você confirmar a presença do/da diarista"
           }
         />
       )}
 
       <UserFormContainer>
         <PageFormContainer fullWidth={step === 4}>
-          <Paper>
+          <Paper sx={{ p: 4 }}>
             <FormProvider {...serviceForm}>
               <form
                 onSubmit={serviceForm.handleSubmit(onServiceFormSubmit)}
@@ -116,6 +127,7 @@ const Contratacao: React.FC<PropsWithChildren> = () => {
                 </form>
               </FormProvider>
             )}
+
             {step === 4 && (
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ fontSize: "82px" }} color={"secondary"}>
@@ -142,11 +154,11 @@ const Contratacao: React.FC<PropsWithChildren> = () => {
                 </Typography>
 
                 <Link
-                  href="/diairas"
+                  href="/diarias"
                   Component={Button}
                   mui={{ color: "secondary", variant: "contained" }}
                 >
-                  Ir para minas diárias
+                  Ir para minhas diárias
                 </Link>
               </Box>
             )}

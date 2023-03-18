@@ -1,5 +1,4 @@
 module.exports = (plop) => {
-
   plop.setGenerator("component", {
     description: "Componente",
     prompts: [
@@ -11,7 +10,7 @@ module.exports = (plop) => {
       {
         name: "type",
         type: "list",
-        message: "Tipo do componente: ",
+        message: "Tipo do Componente: ",
         choices: [
           {
             name: "Data Display",
@@ -58,8 +57,9 @@ module.exports = (plop) => {
           type: "add",
           path: `${basePath}/${data.name}.test.tsx`,
           templateFile: "plop/components/component-test-template.hbs",
-        }, 
+        },
       ];
+
       return actions;
     },
   });

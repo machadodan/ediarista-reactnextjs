@@ -1,12 +1,13 @@
-declare module 'pagarme' {
+declare module "pagarme" {
   export default Pagarme;
 
-  export interface CardInterface{
-    card_number: string
-    card_holder_name: string
-    card_expiration_date: String
-    card_cvv: string
+  export interface CardInterface {
+    card_number: string;
+    card_holder_name: string;
+    card_expiration_date: string;
+    card_cvv: string;
   }
+
   export interface CardValidateInterface {
     card_number: boolean;
     card_holder_name: boolean;
@@ -15,10 +16,9 @@ declare module 'pagarme' {
     brand: string;
   }
 }
-declare const Pagarme: PagarmeIterface;
 
-interface PagarmeIterface {
+declare const Pagarme: PagarmeInterface;
+
+interface PagarmeInterface {
   validate: ({ card: CardInterface }) => { card: CardValidateInterface };
 }
-
-
