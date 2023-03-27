@@ -55,7 +55,13 @@ export const FormSchemaService = {
                 card_expiration_date: "",
               }).card_number
           ),
-          nome_cartao: yup.string(),
+          nome_cartao: yup.string().min(3, "Minimo de tres caracteres")
+          .test("card_holder_name", "Nome do cartão possui número",(value)=>{
+            if(value){
+             return !/[0-9]/.test(value);
+            }
+            return false;
+          }),
           validade: yup.string().test(
             "card_expiration_date",
             "Data de validade inválida",
@@ -101,7 +107,7 @@ export const FormSchemaService = {
   detalheServico() {
     return yup.object().shape({
       faxina: yup.object().shape({
-        data_atendiment: yup
+        data_atendimento: yup
           .date()
           .transform(DateService.transformDate)
           .typeError("Digite uma data válida")

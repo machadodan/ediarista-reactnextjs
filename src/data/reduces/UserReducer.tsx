@@ -69,16 +69,16 @@ const reducer = (
 };
 
   export interface UserReducerInterface {
-    useState: InicialStateType;
-    useDispatch: React.Dispatch<UserActionType>;
+    userState: InicialStateType;
+    userDispatch: React.Dispatch<UserActionType>;
   }
 
 export function useUserReducer(): UserReducerInterface {
   const [state, dispatch] = useReducer(reducer, inicialState);
 
   return {
-    useState: state,
-    useDispatch: dispatch,
+    userState: state,
+    userDispatch: dispatch,
   };
 }
 
