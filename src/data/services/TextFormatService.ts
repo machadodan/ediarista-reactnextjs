@@ -1,3 +1,9 @@
+const CurrencyFormatter = new Intl.NumberFormat("pt-BR", {
+  style:"currency",
+  currency: "BRL",
+});
+
+
 export const TextFormatService = {
   reverseDate(data: string): string {
     if (data.includes("/")) {
@@ -9,10 +15,21 @@ export const TextFormatService = {
     }
     return data.split("-").reverse().join("/");
   },
+  currency(price = 0): string {
+    if(isNaN(price)){
+      price = 0;
+    }
+    return CurrencyFormatter.format(price);
+  },
+  getNumbersFromText(text = ""): string {
+    return text.replace(/\D/g, "");
+  },
+  dateToString(date: Date, withTime = false): string {
+    const time = date.toISOString()
+    if(withTime){
+      return time.substring(0, 19);
+    }
+    return time.substring(0, 10)
+  },
 };
 
-//2020/20/20
-//['2020','20','01']
-//['01','20','2020']
-//01-20-2020
-//2020-20-01T01:01:01Z

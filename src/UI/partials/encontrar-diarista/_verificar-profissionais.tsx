@@ -10,8 +10,13 @@ import {
   ProfissionaisPaper,
   ProfissionaisContainer,
 } from "./_verificar-profissionais.styled";
+interface VerificarProfissionaisProps {
+  onContratacaoProfissional: () => void;
+}
 
-const VerificarProfissionais: React.FC<PropsWithChildren> = () => {
+const VerificarProfissionais: React.FC<VerificarProfissionaisProps> = ({
+  onContratacaoProfissional,
+}) => {
   const {
     cep,
     setCep,
@@ -82,11 +87,15 @@ const VerificarProfissionais: React.FC<PropsWithChildren> = () => {
                     {diaristasRestantes > 1
                       ? " profissionais atendem "
                       : " profissional atende "}
-                    .
                   </Typography>
                 )}
 
-                <Button variant="contained" color="secondary" sx={{ mt: 5 }}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{ mt: 5 }}
+                  onClick={onContratacaoProfissional}
+                >
                   Contratar um(a) profissional
                 </Button>
               </Container>
