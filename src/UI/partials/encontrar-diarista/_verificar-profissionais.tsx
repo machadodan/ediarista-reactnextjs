@@ -102,7 +102,7 @@ const VerificarProfissionais: React.FC<VerificarProfissionaisProps> = ({
             </ProfissionaisPaper>
           ) : (
             <Typography align="center" color="textPrimary">
-              inda não temos nenhum(a) diarista disponível em sua região
+              ainda não temos nenhum(a) diarista disponível em sua região
             </Typography>
           ))}
       </Container>

@@ -21,7 +21,7 @@ const {
       />
       <TextField
         label={"Senha"}
-        type={"Password"}
+        type={"password"}
         {...register("login.password")}
         error={errors.login?.password != undefined}
         helperText={errors.login?.password?.message}

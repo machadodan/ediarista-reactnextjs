@@ -1,12 +1,16 @@
-import produce from 'immer';
-import { ApiLinksInterface } from '../@types/ApiLinksInterface';
-import React, {useReducer, useEffect} from "react";
-import { ApiService } from '../services/ApiService';
-import { UserInterface, UserType } from '../@types/UseInterface';
-import { CidadeInterface, EnderecoInterface } from '../@types/EnderecoInterface';
+import { ApiLinksInterface } from "../@types/ApiLinksInterface";
+import {
+  CidadeInterface,
+  EnderecoInterface,
+} from "../@types/EnderecoInterface";
+import { UserInterface, UserType } from "../@types/UserInterface";
+import { ApiService } from "../services/ApiService";
+import { LoginService } from "../services/LoginService";
+import produce from "immer";
+import React, { useReducer, useEffect } from "react";
 
 
-export const inicialState = {
+export const initialState = {
   user: {
     nome_completo: "",
     nascimento: "",
@@ -31,23 +35,23 @@ export const inicialState = {
   isLogging: false,
 };
 
-export type InicialStateType = typeof inicialState;
+export type InitialStateType = typeof initialState;
 
-type UserAction = 
+type UserAction =
   | "SET_USER"
   | "SET_LOGGING"
   | "SET_ADDRESS_LIST"
   | "SET_USER_ADDRESS";
 
 export type UserActionType = {
-  type: string
-  payload?: unknown
-}
+  type: UserAction;
+  payload?: unknown;
+};
 
 const reducer = (
-  state: InicialStateType,
+  state: InitialStateType,
   action: UserActionType
-): InicialStateType => {
+): InitialStateType => {
   const nextState = produce(state, (draftState) => {
     switch (action.type) {
       case "SET_USER":
@@ -68,20 +72,33 @@ const reducer = (
   return nextState;
 };
 
-  export interface UserReducerInterface {
-    userState: InicialStateType;
-    userDispatch: React.Dispatch<UserActionType>;
-  }
+export interface UserReducerInterface {
+  userState: InitialStateType;
+  userDispatch: React.Dispatch<UserActionType>;
+}
 
 export function useUserReducer(): UserReducerInterface {
-  const [state, dispatch] = useReducer(reducer, inicialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    getUser();
+  }, [state.user.id]);
+
+  async function getUser() {
+    try {
+      dispatch({ type: "SET_LOGGING", payload: true });
+      const user = await LoginService.getUser();
+      if (user) {
+        dispatch({ type: "SET_USER", payload: user });
+      }
+    } catch (error) {
+    } finally {
+      dispatch({ type: "SET_LOGGING", payload: false });
+    }
+  }
 
   return {
     userState: state,
     userDispatch: dispatch,
   };
 }
-
-
-
-

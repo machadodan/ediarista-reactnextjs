@@ -1,10 +1,8 @@
-import { strict } from "assert";
 import { AxiosError, AxiosRequestConfig } from "axios";
 import { useEffect, useCallback } from "react";
 import useSwr, {mutate} from "swr";
-import { string } from "yup";
 import { ApiLinksInterface } from "../@types/ApiLinksInterface";
-import { ApiService, ApiServiceHateoas } from "../services/ApiService";
+import {ApiServiceHateoas } from "../services/ApiService";
 
 export default function useApiHateoas<OutputType, Err = unknown>(
   links: ApiLinksInterface[] = [],

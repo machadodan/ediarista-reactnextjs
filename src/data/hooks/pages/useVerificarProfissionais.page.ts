@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import {
   BuscaCepResponse,
   UserShortInformationInterface,
-} from "../../@types/UseInterface";
+} from "../../@types/UserInterface";
 import { ApiService } from "../../services/ApiService";
 import { ValidationService } from "../../services/ValidationService";
 

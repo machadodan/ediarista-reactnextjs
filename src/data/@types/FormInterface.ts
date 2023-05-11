@@ -1,6 +1,6 @@
 import { DiariaInterface } from "./DiariaInterface";
-import { EnderecoInterface } from "./EnderecoInterface";
-import { UserInterface } from "./UseInterface";
+import { CidadeInterface, EnderecoInterface } from "./EnderecoInterface";
+import { UserInterface } from "./UserInterface";
 
 export interface NovaDiariaFormDataInterface {
   endereco: EnderecoInterface;
@@ -13,6 +13,12 @@ export interface CadastroUserInterface{
 
 export interface CadastroClienteFormDataInterface 
 extends CadastroUserInterface {}
+
+export interface CadastroDiaristaFormDataInterface
+  extends CadastroUserInterface {
+  endereco?: EnderecoInterface;
+  enderecosAtendidos?: CidadeInterface[];
+}
 
 export interface LoginFormDataInterface<T> {
   login: T;
