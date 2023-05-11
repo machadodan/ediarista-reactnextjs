@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { string } from "yup";
 import { ApiLinksInterface } from "../@types/ApiLinksInterface";
 import { LocalStorage } from "./StorageService";
 
@@ -13,8 +12,9 @@ export const ApiService = axios.create({
 });
 
 
-ApiService.interceptors.response.use((response)=>response, 
-(error)=>{
+ApiService.interceptors.response.use(
+  (response) => response, 
+  (error) => {
   if(error.response.status === 401 && 
     error.response.data.code === "token_not_valid"
     ) {     
@@ -26,9 +26,9 @@ ApiService.interceptors.response.use((response)=>response,
 );
 
 async function handleTokenRefresh(error: {config: AxiosRequestConfig }) {
-  const token_refresh = LocalStorage.get("token_refresh", "");
+  const tokenRefresh = LocalStorage.get("token_refresh", "");
 
-  if(token_refresh) {
+  if(tokenRefresh) {
     LocalStorage.clear("token_refresh");
     LocalStorage.clear("token");
 
@@ -37,18 +37,16 @@ async function handleTokenRefresh(error: {config: AxiosRequestConfig }) {
         access:string;
         refresh: string;
       }>("/auth/token/refresh/", {
-        refresh: token_refresh,
+        refresh: tokenRefresh,
       });
 
       LocalStorage.set("token_refresh", data.refresh);
       LocalStorage.set("token", data.access);
 
       ApiService.defaults.headers.common.Authorization = `Bearer ${data.access}`;
-
       error.config.headers!.Authorization = `Bearer ${data.access}`;
 
       return ApiService(error.config);
-
       
     } catch (error) {
       return error;
@@ -57,31 +55,33 @@ async function handleTokenRefresh(error: {config: AxiosRequestConfig }) {
   }
 }
 
-export function linksResolver(
+export function linksResolver (
   links: ApiLinksInterface[] = [],
   nomeLink: string
-) {
+
+  ) {
   return links.find((link) => link.rel === nomeLink);
-}
+};
 
 export function ApiServiceHateoas(
   links: ApiLinksInterface[] = [],
   nome: string,
-  onCanRequest: (request: <T>(data?: AxiosRequestConfig)=> Promise<AxiosResponse<T>>)
-  => void,
+  onCanRequest: (
+    request: <T>(data?: AxiosRequestConfig) => Promise<AxiosResponse<T>>
+  ) => void,
   onCantRequest?: Function
-  ) {
-    const link = linksResolver(links, nome);
-    if(link){
-      onCanRequest(async (data) => {
-        return await ApiService.request({
-          url: link.uri,
-          method: link.type,
-          ...data,
-        });
+) {
+  const link = linksResolver(links, nome);
+  if (link) {
+    onCanRequest(async (data) => {
+      return await ApiService.request({
+        url: link.uri,
+        method: link.type,
+        ...data,
       });
-    }else{
-      onCantRequest?.();
-    }
+    });
+  } else {
+    onCantRequest?.();
   }
+}
  

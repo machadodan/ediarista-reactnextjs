@@ -22,3 +22,4 @@ const UserForm:React.FC<PropsWithChildren<UserFormProps>> = ()=> {
     export * from "./forms/PaymentForm";
     export * from "./forms/PictureForm";
     export * from "./forms/UserDataForm";
+    export * from "./forms/FinancialForm";

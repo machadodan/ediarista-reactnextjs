@@ -19,7 +19,7 @@ import { ExternalServiceContext } from "../../contexts/ExternalServiceContext";
 import { ApiService, ApiServiceHateoas, linksResolver } from "../../services/ApiService";
 import useApiHateoas from "../useApi.hook";
 import { UserContext } from "../../contexts/UserContext";
-import { UserInterface, UserType } from "../../@types/UseInterface";
+import { UserInterface, UserType } from "../../@types/UserInterface";
 import { TextFormatService } from "../../services/TextFormatService";
 import { LoginService } from "../../services/LoginService";
 import { UserService } from "../../services/UserService";
@@ -97,7 +97,7 @@ export default function useContratacao() {
     if (ValidationService.cep(cep)) {
       ApiServiceHateoas(
         externalServicesState.externalService,
-        "Verificar_disponibilidade_cidade",
+        "verificar_disponibilidade_atendimento",
         (request) => {
           request<{ disponibilidade: boolean }>({ params: { cep } })
             .then(({ data }) => {
@@ -196,29 +196,29 @@ export default function useContratacao() {
     const loginSuccess = await login(data.login);
     if (loginSuccess) {
       const user = await LoginService.getUser();
-      if(user){
+      if (user) {
         criarDiaria(user);
         setStep(3)
       }
     }
   }
 
-  async function login(credentials: CredenciaisInterface,
-    user?: UserInterface 
-    ): Promise<boolean> {
-      const loginSuccess = await LoginService.login(credentials);
+  async function login(
+    credentials: CredenciaisInterface,
+    user?: UserInterface
+  ): Promise<boolean> {
+    const loginSuccess = await LoginService.login(credentials);
 
-      if(loginSuccess) {
-        if(!user) {
-          user = await LoginService.getUser()
-        }
-        userDispatch({type: "SETU_USER", payload: user });
-      } else {
-        setLoginErro("E-mail e/ou senha inválidos");
+    if (loginSuccess) {
+      if (!user) {
+        user = await LoginService.getUser();
       }
-      return loginSuccess;
-      
+      userDispatch({ type: "SET_USER", payload: user });
+    } else {
+      setLoginErro("E-mail e/ou senha inválidos");
     }
+    return loginSuccess;
+  }
 
   async function onPaymentFormSubmit(data: PagamentoFormDataInterface) {
     const cartao = {
@@ -311,8 +311,8 @@ export default function useContratacao() {
           preco: totalPrice,
           tempo_atendimento: totalTime,
           data_atendimento: TextFormatService.reverseDate(
-            faxina.data_atendimento + "T" + faxina.hora_inicio
-            ),       
+            faxina.data_atendimento as string)
+            + "T" + faxina.hora_inicio,            
         },
        });
 

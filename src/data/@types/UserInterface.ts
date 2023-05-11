@@ -20,7 +20,7 @@ export interface UserInterface {
     access: string;
     refresh: string;
   };
-  links?:ApiLinksInterface[];
+  links?: ApiLinksInterface[];  
 }
 
 export interface UserShortInformationInterface {

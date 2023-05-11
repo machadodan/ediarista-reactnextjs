@@ -1,14 +1,14 @@
 import {createContext} from 'react';
-import { 
-  ExternalServiceReducerInterface, 
-  inicialState, 
-  useExternalServicesReduce
- } from '../reduces/ExternalServiceReducer';
+import {
+  ExternalServiceReducerInterface,
+  initialState,
+  useExternalServicesReduce,
+} from "../reduces/ExternalServiceReducer";
  import React, { PropsWithChildren } from 'react';
 
 const initialValue: ExternalServiceReducerInterface = {
   externalServicesDispatch: () => {},
-  externalServicesState: inicialState,
+  externalServicesState: initialState,
 };
 
 export const ExternalServiceContext = createContext(initialValue);

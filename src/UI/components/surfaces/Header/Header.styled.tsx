@@ -1,5 +1,5 @@
 import { AppBar, AppBarProps, Drawer } from "@mui/material";
-import { styled } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 
 export const HeaderAppBar = styled((props: AppBarProps)=> (
