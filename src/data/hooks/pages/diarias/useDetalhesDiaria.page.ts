@@ -25,6 +25,7 @@ export default function useDetalhesDiaria(diariaId: string) {
       
       if(diariaSelecionada) {
         ApiServiceHateoas(diariaSelecionada.links, "self", async (request)=>{
+          
          const {data: diariaCompleta} = await request<DiariaInterface>();
          
          if(diariaCompleta) {

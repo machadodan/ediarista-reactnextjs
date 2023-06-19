@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { UserInterface, UserType } from "../@types/UserInterface";
 
 export const privateRoutes = [
-  "/alterar-dados",
-  "/oportunidades",
-  "/diarias",
-  "/pagamentos",
+  "/editar_usuario",
+  "/oportunidade",
+  "/diaria",
+  "/pagamento",
 ];
 
 export const annonymousRoutes = [
@@ -17,8 +17,8 @@ export const annonymousRoutes = [
 ];
 
 export const houseCleanerOnlyRoutes = [
-  "/pagamentos", 
-  "/oportunidades",
+  "/pagamento", 
+  "/oportunidade",
 ];
 
 export default function useRouterGuard(
@@ -66,7 +66,7 @@ export default function useRouterGuard(
     if (!isLogged) {
       return "/";
     }
-    return isHouseCleaner ? "/oportunidades" : "/diarias";
+    return isHouseCleaner ? "/oportunidade" : "/diaria";
   }
 
   return router;

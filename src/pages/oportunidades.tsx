@@ -58,7 +58,7 @@ const Oportunidades: React.FC = () => {
                 key={oportunidade.id}
                 header={
                   <>
-                    Data: {""}
+                    Data:{" "}
                     {TextFormatService.reverseDate(
                       oportunidade.data_atendimento as string
                     )}
@@ -121,17 +121,15 @@ const Oportunidades: React.FC = () => {
                   </TableCell>
                   <TableCell>
                     {TextFormatService.currency(oportunidade.preco)}
-                    <TableCell>
-                      {podeCandidatar(oportunidade) && (
-                        <Button
-                          onClick={() =>
-                            setOportunidadeSelecionada(oportunidade)
-                          }
-                        >
-                          Se candidatar
-                        </Button>
-                      )}
-                    </TableCell>
+                  </TableCell>
+                  <TableCell>
+                    {podeCandidatar(oportunidade) && (
+                      <Button
+                        onClick={() => setOportunidadeSelecionada(oportunidade)}
+                      >
+                        Se candidatar
+                      </Button>
+                    )}
                   </TableCell>
                 </TableRow>
               )}
@@ -222,7 +220,7 @@ const Oportunidades: React.FC = () => {
       </Dialog>
       <Snackbar
         open={mensagemSnackbar.length > 0}
-        message={"oportunidade aceita"}
+        message={mensagemSnackbar}
         autoHideDuration={4000}
         onClose={() => setMensagemSnackbar("")}
       />

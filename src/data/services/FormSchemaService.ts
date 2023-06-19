@@ -55,13 +55,19 @@ export const FormSchemaService = {
                 card_expiration_date: "",
               }).card_number
           ),
-          nome_cartao: yup.string().min(3, "Minimo de tres caracteres")
-          .test("card_holder_name", "Nome do cartão possui número",(value)=>{
-            if(value){
-             return !/[0-9]/.test(value);
-            }
-            return false;
-          }),
+          nome_cartao: yup
+            .string()
+            .min(3, "Minimo de tres caracteres")
+            .test(
+              "card_holder_name",
+              "Nome do cartão possui número",
+              (value) => {
+                if (value) {
+                  return !/[0-9]/.test(value);
+                }
+                return false;
+              }
+            ),
           validade: yup.string().test(
             "card_expiration_date",
             "Data de validade inválida",
@@ -182,4 +188,31 @@ export const FormSchemaService = {
       }),
     });
   },
+  contact() {
+    return yup
+      .object()
+      .shape({
+        usuario: yup.object().shape({
+          email: yup.string().email("E-mail inválido"),
+          password: yup.string().nullable().default(undefined).notRequired(),
+          new_password: yup
+            .string()
+            .nullable()
+            .default(undefined)
+            .notRequired(),
+          password_confirmation: yup
+            .string()
+            .nullable()
+            .default(undefined)
+            .notRequired()
+            .oneOf(
+              [yup.ref("new_password"), null],
+              "As senhas não estão iguais"
+            ),
+        }),
+      })
+      .defined();
+  },
 };
+
+
