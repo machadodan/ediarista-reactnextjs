@@ -75,16 +75,15 @@ export const AddressData = styled(BaseGrid)`
   grid-template-areas:
     "cep cep estado estado cidade cidade cidade"
     "bairro bairro logradouro logradouro numero complemento complemento";
-    
   ${({ theme }) => theme.breakpoints.down("md")} {
-    grid-template-areas:     
+    grid-template-areas:
       "cep"
       "estado"
       "cidade"
       "bairro"
       "logradouro"
       "numero"
-      "complemento";  
+      "complemento";
   }
 `;
 
@@ -105,7 +104,6 @@ export const PageFormContainerStyled = styled("div", {
   gap: ${({ theme }) => theme.spacing(6)};
   align-items: start;
   margin-bottom: ${({ theme }) => theme.spacing(8)};
-
   ${({ theme }) => theme.breakpoints.down("md")} {
     grid-template-columns: 1fr;
     gap: ${({ theme }) => theme.spacing(3)};
@@ -132,9 +130,26 @@ export const FinancialData = styled(BaseGrid)`
 
 export const CitiesSelecion = styled(BaseGrid)`
   grid-template-columns: 1fr;
-  grid-template-areas: "busca-cidades";
+  grid-template-areas: "busca-cidade";
 `;
 
+
+export const ContactData = styled(BaseGrid)`
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    "email email"
+    "senha-antiga senha-antiga"
+    "nova-senha confirmar-senha"
+    "password-strength _";
+  ${({ theme }) => theme.breakpoints.down("md")} {
+    grid-template-areas:
+      "email"
+      "senha-antiga"
+      "nova-senha"
+      "password-strength"
+      "confirmar-senha";
+  }
+`;
 
 
 

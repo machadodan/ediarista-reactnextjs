@@ -1,15 +1,19 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
 import { EnderecoInterface } from "../../../@types/EnderecoInterface";
 import { CadastroDiaristaFormDataInterface } from "../../../@types/FormInterface";
 import { UserInterface, UserType } from "../../../@types/UserInterface";
 import { ExternalServiceContext } from "../../../contexts/ExternalServiceContext";
-import { ApiService, ApiServiceHateoas, linksResolver } from "../../../services/ApiService";
+import {
+  ApiService,
+  ApiServiceHateoas,
+  linksResolver,
+} from "../../../services/ApiService";
 import { FormSchemaService } from "../../../services/FormSchemaService";
 import { LocalStorage } from "../../../services/StorageService";
 import { TextFormatService } from "../../../services/TextFormatService";
 import { UserService } from "../../../services/UserService";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
 
 
 export default function useCadastroDiarista() {
@@ -35,11 +39,10 @@ export default function useCadastroDiarista() {
 
     const newUserLink = linksResolver(
       externalServicesState.externalService,
-       "cadastrar_usuario"
-       );
+      "cadastrar_usuario"
+    );
 
-       if(newUserLink) {
-        
+       if(newUserLink) {        
         try {
           setLoad(true);
           const newUser = await UserService.cadastrar(
@@ -87,24 +90,24 @@ export default function useCadastroDiarista() {
   }
 
   async function onAddressSubmit(data: CadastroDiaristaFormDataInterface) {
-    if(newUser) {
+    if (newUser) {
       ApiServiceHateoas(
-        newUser.links, "relacionar_cidades", 
-      async (request)=> {
-        try {
-          setLoad(true);
-           await request({
-            data: {
-              cidades: data.enderecosAtendidos,
-            },
-           });
-           setSucessoCadastro(true);
-        } catch (error) {
-          
-        }finally{
-          setLoad(false);
-        }       
-      }
+        newUser.links,
+        "relacionar_cidades",
+        async (request) => {
+          try {
+            setLoad(true);
+            await request({
+              data: {
+                cidades: data.enderecosAtendidos,
+              },
+            });
+            setSucessoCadastro(true);
+          } catch (error) {
+          } finally {
+            setLoad(false);
+          }
+        }
       );
     }
   }

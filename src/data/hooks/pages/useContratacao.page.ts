@@ -173,7 +173,7 @@ export default function useContratacao() {
     data: CadastroClienteFormDataInterface,
     link: ApiLinksInterface
     ) {
-    const newUser = await UserService.cadastar(
+    const newUser = await UserService.cadastrar(
       data.usuario, 
       UserType.Cliente, 
       link

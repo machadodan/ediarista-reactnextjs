@@ -8,8 +8,10 @@ import PageTitle from "../../components/data-display/PageTitle/PageTitle";
 import Status from "../../components/data-display/Status/Status";
 import Table, { TableCell, TablePagination, TableRow } from "../../components/data-display/Table/Table";
 import Link from "../../components/navigation/Link/Link";
+import { CancelDialog, ConfirmDialog, RatingDialog } from "./_minhas-diarias-dialogs";
+import { ButtonsContainer } from "./_minhas-diarias.styled";
+//import { Component } from './_minhas-diarias.styled';
 
-// import { Component } from './_minhas-diarias.styled';
 
 const MinhasDiarias: React.FC<PropsWithChildren> = () => {
   const {
@@ -23,60 +25,106 @@ const MinhasDiarias: React.FC<PropsWithChildren> = () => {
     podeCancelar,
     podeConfirmar,
     podeAvaliar,
+    diariaConfirmar,
+    setDiariaConfirmar,
+    confirmarDiaria,
+    diariaAvaliar,
+    setDiariaAvaliar,
+    avaliarDiaria,
+    diariaCancelar,
+    setDiariaCancelar,
+    cancelarDiaria,
+    filtro,
+    setFiltro,
+    alterarFiltro,
   } = useMinhasDiarias();
     return (
       <Container sx={{ mb: 5, p: 0 }}>
         <PageTitle title="Minhas Diárias" />
+
+        <ButtonsContainer>
+          <Button
+            onClick={() => alterarFiltro("pendentes")}
+            variant={filtro === "pendentes" ? "contained" : "outlined"}
+          >
+            Pendentes
+          </Button>
+          <Button
+            onClick={() => alterarFiltro("avaliados")}
+            variant={filtro === "avaliados" ? "contained" : "outlined"}
+          >
+            Avaliadas
+          </Button>
+          <Button
+            onClick={() => alterarFiltro("cancelados")}
+            variant={filtro === "cancelados" ? "contained" : "outlined"}
+          >
+            Canceladas
+          </Button>
+        </ButtonsContainer>
+
         {filteredData.length > 0 ? (
           isMobile ? (
             <>
-              {filteredData.map((item) => {
+              {filteredData.map((diaria) => {
                 return (
                   <DataList
-                    key={item.id}
+                    key={diaria.id}
                     header={
                       <>
                         Data:
                         {TextFormatService.reverseDate(
-                          item.data_atendimento as string
+                          diaria.data_atendimento as string
                         )}
                         <br />
-                        {item.nome_servico}
+                        {diaria.nome_servico}
                       </>
                     }
                     body={
                       <>
                         Status:
-                        {DiariaService.getStatus(item.status!).label}
+                        {DiariaService.getStatus(diaria.status!).label}
                         <br />
                         Valor:
-                        {TextFormatService.currency(item.preco)}
+                        {TextFormatService.currency(diaria.preco)}
                       </>
                     }
                     actions={
                       <>
-                        {podeVisualizar(item) && (
+                        {podeVisualizar(diaria) && (
                           <Button
                             component={Link}
-                            href={`?id=${item.id}`}
+                            href={`?id=${diaria.id}`}
                             color={"inherit"}
                             variant={"outlined"}
                           >
                             Detalhes
                           </Button>
                         )}
-                        {podeCancelar(item) && (
-                          <Button color={"error"} variant={"contained"}>
+                        {podeCancelar(diaria) && (
+                          <Button
+                            color={"error"}
+                            variant={"contained"}
+                            onClick={() => setDiariaCancelar(diaria)}
+                          >
                             Cancelado
                           </Button>
                         )}
-                        {podeConfirmar(item) && (
-                          <Button color={"success"} variant={"contained"}>
+                        {podeConfirmar(diaria) && (
+                          <Button
+                            color={"success"}
+                            variant={"contained"}
+                            onClick={() => setDiariaConfirmar(diaria)}
+                          >
                             Confirmar Presença
                           </Button>
                         )}
-                        {podeAvaliar(item) && (
-                          <Button color={"success"} variant={"contained"}>
+                        {podeAvaliar(diaria) && (
+                          <Button
+                            color={"success"}
+                            variant={"contained"}
+                            onClick={() => setDiariaAvaliar(diaria)}
+                          >
                             Avaliar
                           </Button>
                         )}
@@ -89,7 +137,7 @@ const MinhasDiarias: React.FC<PropsWithChildren> = () => {
           ) : (
             <>
               <Table
-                header={["Data", "Status", "Tipo de Serviço", "Valor", "", ""]}
+                header={["Data", "Status", "Tipo de Serviços", "Valor", "", ""]}
                 data={filteredData}
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
@@ -115,19 +163,34 @@ const MinhasDiarias: React.FC<PropsWithChildren> = () => {
                       {TextFormatService.currency(item.preco)}
                     </TableCell>
                     <TableCell>
-                      {podeVisualizar(item) &&( 
-                      <Link href={`?id=${item.id}`}>Detalhe</Link>
+                      {podeVisualizar(item) && (
+                        <Link href={`?id=${item.id}`}>Detalhes</Link>
                       )}
                     </TableCell>
                     <TableCell>
                       {podeCancelar(item) && (
-                        <Button color={"error"}>Cancelar</Button>
+                        <Button
+                          color={"error"}
+                          onClick={() => setDiariaCancelar(item)}
+                        >
+                          Cancelar
+                        </Button>
                       )}
                       {podeConfirmar(item) && (
-                        <Button color={"success"}>Confirmar Presença</Button>
+                        <Button
+                          color={"success"}
+                          onClick={() => setDiariaConfirmar(item)}
+                        >
+                          Confirmar Presença
+                        </Button>
                       )}
                       {podeAvaliar(item) && (
-                        <Button color={"success"}>Avaliar</Button>
+                        <Button
+                          color={"success"}
+                          onClick={() => setDiariaAvaliar(item)}
+                        >
+                          Avaliar
+                        </Button>
                       )}
                     </TableCell>
                   </TableRow>
@@ -142,6 +205,30 @@ const MinhasDiarias: React.FC<PropsWithChildren> = () => {
           )
         ) : (
           <Typography align="center">Nenhuma diária ainda</Typography>
+        )}
+
+        {diariaConfirmar && (
+          <ConfirmDialog
+            diaria={diariaConfirmar}
+            onConfirm={confirmarDiaria}
+            onCancel={() => setDiariaConfirmar(undefined)}
+          />
+        )}
+
+        {diariaAvaliar && (
+          <RatingDialog
+            diaria={diariaAvaliar}
+            onConfirm={avaliarDiaria}
+            onCancel={() => setDiariaAvaliar(undefined)}
+          />
+        )}
+
+        {diariaCancelar && (
+          <CancelDialog
+            diaria={diariaCancelar}
+            onConfirm={cancelarDiaria}
+            onCancel={() => setDiariaCancelar(undefined)}
+          />
         )}
       </Container>
     );
