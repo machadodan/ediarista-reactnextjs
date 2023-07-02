@@ -9,7 +9,7 @@ export const PictureForm = () => {
      <Controller
        name={"usuario.foto_usuario"}
        //usuario.foto_usuario
-       defaultValue={""}
+       defaultValue={" "}
        control={control}
        render={({ field }) => {
          return (
