@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { UserInterface, UserType } from "../@types/UserInterface";
 
 export const privateRoutes = [
-  "/editar_usuario",
+  "/editar_usuario", 
   "/oportunidade",
   "/diaria",
   "/pagamento",
